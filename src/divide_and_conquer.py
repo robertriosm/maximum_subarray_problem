@@ -23,35 +23,55 @@ luego los une para encontrar el subarreglo de mayor suma que cruza
 los dos subarreglos.
 """
 
+# Definición de la función find_maximum_subarray.
 def find_maximum_subarray(nums):
-    if (len(nums) == 1):
-        return nums[0]
-    else:
-        mid = (len(nums) // 2)
-        left_subarray = nums[:mid]
-        right_subarray = nums[mid:]
 
+    # Caso base en el que si el arreglo tiene un solo elemento, entonces se retorna ese elemento.
+    if (len(nums) == 1):
+
+        # Se retorna el primer elemento del arreglo.
+        return nums[0]
+
+    # Caso inductivo en el que se divide el arreglo en dos subarreglos y se llama recursivamente a la función.
+    else:
+
+        # Cálculo del medio del arreglo y sus dos mitades.
+        midpoint = (len(nums) // 2)
+        left_subarray = nums[: midpoint]
+        right_subarray = nums[midpoint :]
+
+        # Se llama recursivamente a la función para cada mitad del arreglo.
         left_sum = find_maximum_subarray(left_subarray)
         right_sum = find_maximum_subarray(right_subarray)
+
+        # La función find_crossing_subarray encuentra el subarreglo de mayor suma que cruza los dos subarreglos.
         crossing_sum = find_crossing_subarray(left_subarray, right_subarray)
 
+        # Retorno del máximo entre las tres sumas encontradas.
         return max(left_sum, right_sum, crossing_sum)
 
+# Definición de la función find_crossing_subarray.
 def find_crossing_subarray(left_subarray, right_subarray):
+
+    # Instancia inicial de left_sum y current_sum.
     left_sum = float("-inf")
     current_sum = 0
 
-    for i in range(len(left_subarray)-1, -1, -1):
+    # Iteración sobre el arreglo de la izquierda y se va sumando cada elemento a current_sum.
+    for i in range((len(left_subarray) - 1), -1, -1):
         current_sum += left_subarray[i]
-        if current_sum > left_sum:
+        if (current_sum > left_sum):
             left_sum = current_sum
 
+    # Instancia inicial de right_sum y current_sum.
     right_sum = float("-inf")
     current_sum = 0
 
+    # Iteración sobre el arreglo de la derecha y se va sumando cada elemento a current_sum.
     for i in range(len(right_subarray)):
         current_sum += right_subarray[i]
-        if current_sum > right_sum:
+        if (current_sum > right_sum):
             right_sum = current_sum
 
-    return left_sum + right_sum
+    # Retorno de la suma de los dos subarreglos.
+    return (left_sum + right_sum)

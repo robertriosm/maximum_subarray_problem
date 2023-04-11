@@ -26,12 +26,17 @@ máxima hasta el momento, y si current_sum es mayor, entonces se actualiza
 la suma máxima hasta el momento.
 """
 
+# Definición de la función find_maximum_subarray.
 def find_maximum_subarray(nums):
+
+    # Instancia inicial de max_sum y current_sum.
     max_sum = nums[0]
     current_sum = nums[0]
 
+    # Iteración sobre el arreglo y se va sumando cada elemento a current_sum.
     for i in range(1, len(nums)):
-        current_sum = max(nums[i], current_sum + nums[i])
+        current_sum = max(nums[i], (current_sum + nums[i]))
         max_sum = max(max_sum, current_sum)
 
+    # Retorno de la suma máxima encontrada.
     return max_sum
